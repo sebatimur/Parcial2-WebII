@@ -1,8 +1,7 @@
 const Product = require('../models/product.model');
 
 exports.createProduct = async (req, res) => {
-  try {
-    const newProduct = new Product(req.body);
+  try {const newProduct = new Product(req.body);
     const saved = await newProduct.save();
     res.status(201).json({ ok: true, product: saved });
   } catch (err) {
@@ -28,5 +27,5 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
   const deleted = await Product.findByIdAndDelete(req.params.id);
-  res.json({ message: "Producto eliminado", deleted });
+  res.json({ message: "Producto eliminado correctamente", deleted });
 };
