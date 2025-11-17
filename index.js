@@ -4,7 +4,7 @@ const app = require('./app');
 
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
-    console.log("Conectado a la DB");
+    console.log("Conectado a la Base de Datos.");
     app.listen(process.env.SERVER_PORT, () => {
       console.log(`Servidor funcionado en puerto ${process.env.SERVER_PORT}`);
     });
