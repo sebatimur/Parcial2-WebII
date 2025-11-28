@@ -1,11 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/product.controller');
+const { verifyToken } = require('../middlewares/auth');
+const { checkRole } = require('../middlewares/roles');
 
-router.post('/products', productController.createProduct);
-router.get('/products', productController.getAllProducts);
-router.get('/products/:id', productController.getProductById);
-router.put('/products/:id', productController.updateProduct);
-router.delete('/products/:id', productController.deleteProduct);
+// Rutas accesibles según rol
+router.get('/products', verifyToken, checkRole(['ADMIN_ROLE','USER_ROLE','CLIENT_ROLE']), productController.getAllProducts);
+router.get('/products/:id', verifyToken, checkRole(['ADMIN_ROLE','USER_ROLE','CLIENT_ROLE']), productController.getProductById);
+
+// Solo Admin y User pueden modificar
+router.put('/products/:id', verifyToken, checkRole(['ADMIN_ROLE','USER_ROLE']), productController.updateProduct);
+
+// Solo Admin puede crear y borrar
+router.post('/products', verifyToken, checkRole(['ADMIN_ROLE']), productController.createProduct);
+router.delete('/products/:id', verifyToken, checkRole(['ADMIN_ROLE']), productController.deleteProduct);
 
 module.exports = router;

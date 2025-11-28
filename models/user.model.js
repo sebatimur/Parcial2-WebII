@@ -36,16 +36,6 @@ const userSchema = new Schema({
     location: {
       type: String
     },
-    sala: {
-      type: String,
-      required: true,
-      enum: ["Amarilla", "Verde", "Roja", "Azul", "Multicolor"]
-    },
-    Antiguedad: {
-      type: Number,
-      min: 0,
-      max: 50
-    },
     role: {
       type: String,
       default: "CLIENT_ROLE",
